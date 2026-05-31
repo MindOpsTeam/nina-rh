@@ -82,6 +82,60 @@ const SystemRoadmap: React.FC = () => {
       ),
     },
     {
+      id: 'post-remix',
+      title: '🔄 Checklist Pós-Remix (IMPORTANTE)',
+      icon: GitBranch,
+      content: (
+        <div className="space-y-4">
+          <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-4">
+            <p className="text-sm text-amber-300">
+              <strong>Atenção:</strong> Ao remixar este projeto, algumas configurações precisam ser
+              aplicadas para o sistema funcionar corretamente. As correções de banco de dados
+              (Realtime, triggers e políticas RLS) são aplicadas automaticamente. As etapas abaixo
+              são as configurações manuais que dependem de painéis externos.
+            </p>
+          </div>
+
+          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-5 space-y-4">
+            <div>
+              <p className="text-white font-medium mb-1">1. Edge Functions com <code className="text-cyan-400">verify_jwt = false</code></p>
+              <p className="text-sm text-slate-400">
+                Garanta que as seguintes funções estejam com <code className="text-cyan-400">verify_jwt = false</code>:
+                whatsapp-webhook, message-grouper, nina-orchestrator, whatsapp-sender, initialize-system,
+                validate-setup, simulate-webhook, simulate-audio-webhook, test-whatsapp-message,
+                test-elevenlabs-tts, generate-prompt, analyze-conversation, health-check, seed-appointments,
+                trigger-nina-orchestrator, trigger-whatsapp-sender.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-white font-medium mb-1">2. Webhook no Meta for Developers</p>
+              <p className="text-sm text-slate-400">
+                Configure a URL do webhook e o Verify Token no painel do Meta for Developers (aba "APIs").
+              </p>
+            </div>
+
+            <div>
+              <p className="text-white font-medium mb-1">3. ElevenLabs API Key (opcional)</p>
+              <p className="text-sm text-slate-400">
+                Configure a chave da ElevenLabs caso queira respostas em áudio.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4">
+            <p className="text-sm text-emerald-300 font-medium mb-2">✅ Aplicado automaticamente após o remix</p>
+            <ul className="text-sm text-slate-400 space-y-1 list-disc list-inside">
+              <li>Publicação Realtime para conversas, mensagens, contatos, deals, estágios, equipes e agendamentos</li>
+              <li>Triggers de criação automática de deals e atualização de timestamps</li>
+              <li>Políticas RLS de acesso compartilhado (single-tenant) para deals e appointments</li>
+              <li>Fallback de polling no Realtime e remoção do overlay de remix</li>
+            </ul>
+          </div>
+        </div>
+      ),
+    },
+    {
       id: 'whatsapp-tutorial',
       title: '📱 Tutorial: Configurar WhatsApp Business API',
       icon: Smartphone,
