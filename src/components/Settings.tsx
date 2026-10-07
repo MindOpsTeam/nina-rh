@@ -17,7 +17,9 @@ interface OutletContext {
 }
 
 const Settings: React.FC = () => {
-  const { companyName, isAdmin } = useCompanySettings();
+  const { companyName } = useCompanySettings();
+  // Single-tenant workspace: every authenticated user may edit settings (RLS allows it).
+  const isAdmin = true;
   const agentRef = useRef<AgentSettingsRef>(null);
   const apiRef = useRef<ApiSettingsRef>(null);
   const reminderRef = useRef<ReminderSettingsRef>(null);
