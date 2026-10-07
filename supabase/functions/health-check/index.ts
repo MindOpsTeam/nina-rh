@@ -207,8 +207,15 @@ Deno.serve(async (req) => {
         });
       }
 
-      // Check ElevenLabs (optional)
-      if (settings.elevenlabs_api_key) {
+      // Check ElevenLabs (optional) — not a warning when audio responses are disabled
+      if (!settings.audio_response_enabled) {
+        results.push({
+          component: 'elevenlabs',
+          status: 'ok',
+          message: 'Respostas em áudio desativadas',
+          details: { audioEnabled: false },
+        });
+      } else if (settings.elevenlabs_api_key) {
         results.push({
           component: 'elevenlabs',
           status: 'ok',
